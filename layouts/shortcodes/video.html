@@ -1,0 +1,86 @@
+{{ $filename := .Get "src" }}
+{{ $width := .Get "width" | default "100%" }}
+{{ $height := .Get "height" }}
+{{ $autoplay := .Get "autoplay" }}
+{{ $loop := .Get "loop" }}
+{{ $caption := .Get "caption" }}
+{{ $controls := .Get "controls" | default "true" }}
+
+{{ $muted := .Get "muted" }}
+{{ if and $autoplay (ne $muted "false") }}
+    {{ $muted = "true" }}
+{{ end }}
+
+{{ $videoID := delimit (slice "video" (.Ordinal) (now.Unix)) "-" | urlize }}
+
+{{ if not $filename }}
+    {{ errorf "FEHLER: Der Shortcode <video> in %s benötigt den Parameter 'src' (Dateiname ohne Endung)." .Position }}
+{{ else }}
+    
+    {{ $pathMP4 := printf "videos/%s.mp4" $filename }}
+    {{ $pathWebM := printf "videos/%s.webm" $filename }}
+    
+    {{ $mp4 := .Page.Resources.GetMatch $pathMP4 }}
+    {{ $webm := .Page.Resources.GetMatch $pathWebM }}
+
+    {{ if or $mp4 $webm }}
+        
+        <div class="flex flex-col">
+            <div class="video-container" style="max-width: {{ $width }}; margin: 0 auto;">
+                
+                <video 
+                    id="{{ $videoID }}"
+                    class="autoplay-video-element"
+                    {{ if $autoplay }} 
+                        autoplay 
+                        style="display: block;" 
+                    {{ else }}
+                        controls
+                    {{ end }}
+                    {{ if $loop }} loop {{ end }}
+                    {{ if eq $muted "true" }} muted {{ end }}
+                    {{ with $width }} width="{{ . }}" {{ end }}
+                    {{ with $height }} height="{{ . }}" {{ end }}
+                    preload="metadata"
+                    playsinline
+                >
+                    {{ with $mp4 }}
+                        <source src="{{ .RelPermalink }}" type="video/mp4">
+                    {{ end }}
+                    
+                    {{ with $webm }}
+                        <source src="{{ .RelPermalink }}" type="video/webm">
+                    {{ end }}
+                    
+                    Ihr Browser unterstützt leider das Video-Tag nicht.
+                </video>
+            </div>
+
+            {{ if $autoplay }}
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var video = document.getElementById('{{ $videoID }}');
+                    var promise = video.play();
+                    
+                    if (promise !== undefined) {
+                        promise.catch(error => {
+                            // Autoplay blockiert
+                            video.setAttribute('controls', 'true');
+                            video.style.display = 'block';
+                        });
+                    }
+                });
+            </script>
+            {{ end }}
+
+            {{ if $caption }}
+                <span class="-mt-6 mb-4 text-center text-sm text-slate-700 dark:text-slate-200">
+                    {{ $caption | markdownify }}
+                </span>
+            {{ end }}
+        </div>
+        
+    {{ else }}
+        {{ errorf "FEHLER: Video-Datei(en) '%s' oder '%s' nicht im Page Bundle unter 'videos/' gefunden. (Aufgerufen in %s)" $pathMP4 $pathWebM .Page.Path }}
+    {{ end }}
+{{ end }}
