@@ -13,3 +13,12 @@ enableEmoji: true
 disableKinds: ["taxonomy", "term"]
 languageCode: "en-us"
 enableRobotsTXT: true
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+highlight:
+    style: dracula
+    noClasses: false
+params:
+  custom_css: ["css/custom.css"]
