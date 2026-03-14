@@ -1,0 +1,57 @@
+/* Hintergrund für Code-Blöcke */
+pre, .highlight pre {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+/* Hintergrund für Inline-Code (im Text) */
+code {
+    background-color: #f0f0f0;
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: #bb80f2;
+}
+
+/* Fix für Bilder nebeneinander */
+figure {
+    margin: 0;
+    width: 100%; /* Damit sie sich im Flex-Container den Platz teilen */
+}
+
+/* Erzwingt eine einheitliche Höhe für alle Post-Karten */
+.flex.flex-row.rounded-xl {
+    height: 150px !important;    /* Hier die gewünschte Höhe einstellen */
+    max-height: none !important; /* Hebt die 320px-Begrenzung auf */
+    margin-bottom: 2rem;         /* Abstand zwischen den Posts */
+    width: 550px !important;      /* Volle Breite innerhalb des Containers */
+    max-width: none !important;  /* Verhindert, dass sie bei 2xl (672px) stoppen */
+}
+
+/* Falls die Posts nebeneinander rutschen, zwinge den Container auf Spalten-Layout */
+main, .posts-list, .contents {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center; /* Zentriert die Karten auf der Seite */
+}
+
+/* Erzwingt Linksbündigkeit für das Datum und dessen Container */
+.flex.flex-row.rounded-xl time, 
+.flex.flex-row.rounded-xl .text-slate-400,
+.flex.flex-row.rounded-xl span {
+    display: block !important;
+    text-align: left !important;
+    margin-right: auto !important; /* Schiebt alles von rechts weg */
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+/* Falls das Datum in einem Flex-Container sitzt, richten wir diesen links aus */
+.flex.flex-row.rounded-xl div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important; /* Richtet Kinder am linken Rand aus */
+    justify-content: flex-start !important;
+}
