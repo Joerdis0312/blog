@@ -15,14 +15,14 @@ To evaluate the gameplay experience and technical implementation, I conducted a 
 
 The study focused on two primary categories:
 
- 1. Gameplay Mechanics: Ease of understanding, performance in skill-based minigames (Reaction and T-shape), and overall entertainment value.
+ 1. Gameplay Mechanics: Ease of understanding, performance in skill-based minigames (reaction and T-shape), and overall entertainment value.
  2. VR Experience: Motion sickness, sense of presence, and physical/visual fatigue.
 
 Notably, one participant with a history of vertigo experienced significant motion sickness after the first jump and was unable to continue.
 
 **Part 1: Mechanics and Engagement**
 
-As shown in the first figure, the game mechanics were easy to understand. However, the "fun factor" varied among participants. While the core mechanics were well-received, long-term motivation was limited by a lack of substantial rewards. While players could compare their completion time or the number of minigames played with previous runs, the high impact of randomness made direct competition difficult.
+As shown in the first figure, the game mechanics were easy to understand. However, the entertainment factor varied among participants. While the core mechanics were well-received, long-term motivation was limited by a lack of substantial rewards. While players could compare their completion time or the number of minigames played with previous runs, the high impact of randomness made direct competition difficult.
 
 {{< figure src="images/part_1_1.png" caption="User study results regarding mechanics and engagement." >}}
 

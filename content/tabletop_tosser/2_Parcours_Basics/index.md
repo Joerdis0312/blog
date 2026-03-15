@@ -12,7 +12,7 @@ The first step involved modifying the existing environment. The small fields pla
 
 {{< figure src="images/vr_colors.png" caption="The low-poly color map used for texturing." >}}
 
-After modeling the assets, I placed them along the path at relatively equal intervals. I experimented with different total field counts and settled on 45 fields to balance gameplay duration—ensuring the player engages with several minigames without the experience becoming repetitive. Each field has a collider and a tag named "field," allowing me to track if the player is standing on it. By naming the fields sequentially (e.g., "Field_0"), I can determine the correct position of the current and the next field by tracking the number of jumps the player has performed.
+After modeling the assets, I placed them along the path at relatively equal intervals. I experimented with different total field counts and settled on 45 fields to balance gameplay duration — ensuring the player engages with several minigames without the experience becoming repetitive. Each field has a collider and a tag named *field*, allowing me to track if the player is standing on it. By naming the fields sequentially (e.g., *Field_0*), I can determine the correct position of the current and the next field by tracking the number of jumps the player has performed.
 
 I placed the collectible coins at the peak of the jump trajectory. Consequently, the player collects them automatically during the jump. I initially considered placing them slightly off-center so they would have to be "pushed" by the controllers mid-air. However, I was concerned that the transition from swinging arms to initiate the jump to immediately reaching for coins might be too fast or taxing. Therefore, I opted for the simpler approach of automatic collection.
 
@@ -58,4 +58,4 @@ IEnumerator JumpCoroutine(Vector3 target)
 }
 ```
 
-To test the basic jumping mechanic before integrating minigames, I initially added one "available jump" whenever the player entered a field collider. This allowed me to verify the core mechanics before gradually including the minigames.
+To test the basic jumping mechanic before integrating minigames, I initially added one to *available_jumps* whenever the player entered a field collider. This allowed me to verify the core mechanics before gradually including the minigames.

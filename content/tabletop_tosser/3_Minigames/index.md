@@ -7,7 +7,7 @@ weight: 3
 
 I designed the minigames to be based on the same core mechanics. My goal was to create a versatile system, so I implemented a simple collision-based interaction system. Each interactive object is equipped with a collider and a unique tag, enabling the *OnTriggerEnter* method to identify the object and execute the corresponding logic.
 
-Which minigame a player encounters is determined randomly, with the exception of the T-shape interaction, which must be performed at the end of each of the three parcour sections. To ensure all objects face the next field, I calculate a local coordinate system upon entering a new field. The "up" vector is calculated only once at the start of the game.
+Which minigame a player encounters is determined randomly, with the exception of the T-shape interaction, which must be performed at the end of each of the three parcour sections. To ensure all objects face the next field, I calculate a local coordinate system upon entering a new field. The *up* vector is calculated only once at the start of the game.
 
 ```c
 // compute the direction facing to the next field
@@ -31,7 +31,7 @@ The first minigame is a board game classic: the dice. I modeled the dice in Blen
     {{< figure src="images/card_back.png" caption="The back side of the cards I created." >}}
 </div>
 
-The second minigame involving drawing a card is also inspired by traditional board games. When a player enters the field collider and the card minigame is triggered, four card backs are displayed. Colliding with a card causes it to disappear, revealing a card front that displays the number of jumps awarded. There are seven possible cards:
+The second minigame involving drawing a card is also inspired by traditional board games. When a player enters the field collider and the card minigame is triggered, four card backs are displayed. Colliding with a card causes this card to disappear, revealing a card front at the same position that displays the number of jumps awarded. There are seven possible cards:
  - One field forward
  - Two fields forward
  - Three fields forward
@@ -42,7 +42,7 @@ The second minigame involving drawing a card is also inspired by traditional boa
 
 To implement cards 4–6, I track the value of the previous roll. This value is initialized to 1 to prevent errors if a player draws these cards at the start. *Half of last roll* is rounded down, except when the last roll was 1, in which case it defaults to *One field forward*.
 
-Implementing the *One field backward* card was more challenging, as it required modifications to the jumping algorithm. I had to set the next field to the previous one and recalculate the direction for the jump boxes and the player's orientation. I also implemented a isJumping boolean to prevent accidental collisions with interactive objects (dice, cards, or cubes) during the backward jump, as the player might enter a field collider before the horizontal movement is fully completed. Additionally, I added logic to ensure players cannot receive a backward card at the very beginning or immediately after a T-shape interaction.
+Implementing the *One field backward* card was more challenging, as it required modifications to the jumping algorithm. I had to set the next field to the previous one and recalculate the direction for the jump boxes and the player's orientation. I also implemented a *jumping* boolean to prevent accidental collisions with interactive objects (dice, cards, or cubes) during the backward jump, as the player might enter a field collider before the horizontal movement is fully completed. Additionally, I added logic to ensure players cannot receive a backward card at the very beginning or immediately after a T-shape interaction.
 
 {{< video src="cards" type="video/mp4" caption="Demonstration of the card mechanic and subsequent jump sequence." >}}
 
@@ -94,9 +94,9 @@ The T-shape interaction serves as a mandatory checkpoint. The task requires alig
 
 The interaction follows a three-step sequence:
 
- 1. Horizontal Alignment: Movement along the X or Z axis.
+ 1. Horizontal Alignment: Movement along the X or Z axis (depending on the players position in the parcour).
  2. Vertical Alignment: Movement along the Y-axis.
- 3. Rotational Alignment: Rotation around the Y-axis.
+ 3. Rotational Alignment: Rotation around the local Y-axis.
 
 ```c
 void Update()
