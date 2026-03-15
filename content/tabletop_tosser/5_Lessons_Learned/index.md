@@ -63,7 +63,7 @@ I suspect the issue arose because the player and the field markers were being in
 
 In the reaction minigame, I encountered a bug where the jump count was calculated twice at the end of the ten-second timer. The first calculation would reset the hit count to zero, and the second would then default to the minimum of one jump. This happened because the script was running on both controllers simultaneously. I fixed this by adding a check to ensure the logic only executes for the left controller.
 
-In the T-shape interaction, the object initially moved in only one direction instead of oscillating. I had omitted the *-1.5f* offset in the *Mathf.PingPong* method, which prevented it from returning to a negative range. Additionally, the oscillation center was off-target; I corrected this by setting the startPosition to *TargetT.transform.position* instead of the script's own transform. Finally, to prevent accidental double-triggers of the *stop* button—often caused by the player's hand passing through the collider twice during a single motion—I extended the collider's depth to the rear.
+In the T-shape interaction, the object initially moved in only one direction instead of oscillating. I had omitted the *-1.5f* offset in the *Mathf.PingPong* method, which prevented it from returning to a negative range. Additionally, the oscillation center was off-target; I corrected this by setting the startPosition to *TargetT.transform.position* instead of the script's own transform. Finally, to prevent accidental double-triggers of the *stop* button — often caused by the player's hand passing through the collider twice during a single motion — I extended the collider's depth to the rear.
 
 **Version Control Challenges**
 
@@ -71,4 +71,4 @@ During the deployment of this blog, a large video file exceeded GitHub's file si
 
 **Conclusion**
 
-I am very satisfied with the project's modular design, which allowed me to implement and test individual components without having to plan every minigame from the start. The system is easily expandable; it could be modified with new minigames using the same collision mechanics, different maps, or even a multiplayer mode.
+I am very satisfied with the project's modular design, which allowed me to implement and test individual components without having to plan every minigame from the start. The system is easily expandable; it could be modified with new minigames using the same collision mechanics or other mechanics, different maps, or even a multiplayer mode.
