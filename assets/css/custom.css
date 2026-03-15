@@ -23,7 +23,7 @@ figure {
 
 /* Erzwingt eine einheitliche Höhe für alle Post-Karten */
 .flex.flex-row.rounded-xl {
-    height: 150px !important;    /* Hier die gewünschte Höhe einstellen */
+    height: 170px !important;    /* Hier die gewünschte Höhe einstellen */
     max-height: none !important; /* Hebt die 320px-Begrenzung auf */
     margin-bottom: 2rem;         /* Abstand zwischen den Posts */
     width: 550px !important;      /* Volle Breite innerhalb des Containers */
