@@ -33,5 +33,8 @@ The motion sickness is very different between the players. It's mostly like the 
 **Feedback**
 
  - The idea is good, but with more skill based minigames it were better.
+ - More motivation, to play the game more often. (Rankings with the amount of rolls needed, or stats from the minigames.)
  - Place the objects on a height based of the height of the headset.
+ - The objects are too big.
+ - Give an acoustic or visible timer for the reaction game.
  - The world is flickering too much.
