@@ -7,13 +7,13 @@ weight: 1
 
 **Hardware Constraints and Debugging**
 
-The primary challenge during development was a hardware limitation: My laptop's GPU was insufficient to support Meta Horizon Link. Therefor I had to build the whole project for every small change I made and install it on the headset with SideQuest. The main disadvantage was that I could't debug the game and didn't see the error messages, which made it a lot more difficult to find some problems.
+The primary challenge during development was a significant hardware limitation: my laptop's GPU was insufficient to support Meta Quest Link. Therefore, I had to build and deploy the entire project for every minor change, installing it on the headset via SideQuest. The main disadvantage was the inability to use real-time debugging; I could not see live error messages or logs, which made troubleshooting considerably more difficult.
 
 **Logic Errors and System Initialization**
 
-One problem that would be a lot easier to find with an error message was a null pointer exception while creating the card minigame. After pushing the one card, I wanted to deactivate this card and place the white card at the same position. I had the problem that the white card was not in the same spot. Later, I found that the problem was that I turned the white card different than the others so that the writing is shown correctly to the player. But I didn't figure it out at the beginning and deleted the card and imported it new to Unity and into the scene, but I forgot to set it again in the inspector, so while pushing, the card backside was deleted correctly, but the new white card wasn't showing. I thought it was a problem with the positioning since my card was previously shown. It took me two days to figure it out. With an appropriate error message, this would have been a lot easier. I learned that if I include a new GameObject in any script, the first thing to do for me was to go to the Unity inspector and select the correct object for the script. I also learned to pay attention to the layers of the objects, since we got the project with some layers, and I didn't know what the differences were, and hitting the dice didn't work as I wished, since I used the wrong layer on the dice.
+A problem that would have been much easier to resolve with access to error logs was a *NullReferenceException* during the creation of the card minigame. Upon hitting a card, I intended to deactivate the card back and instantiate a white card at the same position. Initially, the white card appeared in the wrong spot. I later discovered that this was due to a different rotation setting used to ensure the text faced the player correctly. However, during my initial troubleshooting, I deleted and re-imported the card asset into the scene but forgot to re-assign it in the Inspector. Consequently, while the card back was disabled correctly, the new white card failed to appear. Without logs, I mistakenly assumed it was a positioning error. Only after using AI to help identify potential logic gaps did I realize the program was halting at that point. This taught me a vital lesson: whenever a new GameObject is added to a script, the first step must be to verify the assignment in the Unity Inspector. I also learned to pay closer attention to Layers, as using the wrong layer on the dice initially prevented collision detection from working as intended.
 
-Another problem was that sometimes my game failed during startup. It was random if the .apk would start correctly or not, even without changing anything. The problem was due to a race condition and could be cured with manually loading XR with this script (given by AI) on an empty object at the top of the Unity hierachy:
+Another issue was that the application occasionally failed to launch on the headset, even without changes to the code. This was caused by a race condition during startup. I resolved this by manually loading the XR subsystems using a custom script (provided by AI) attached to an empty object at the top of the Unity hierarchy:
 
 ```c
 public class XRManualLoader : MonoBehaviour
@@ -57,20 +57,18 @@ public class XRManualLoader : MonoBehaviour
 }
 ```
 
-I guess that the problem occured due to the fact that I placed the player at the position of the first field. And sometimes the field would be initialised first and sometimes the player which then had no correct initial position.
+I suspect the issue arose because the player and the field markers were being initialized in an inconsistent order, sometimes leaving the player without a valid starting position.
 
 **Minigame Refinement**
 
-In the reaction minigame I first had the problem, that the number of jumps was computed two times, after the ten seconds, which leads to a one each time. The first calculation, sets the number of hit cubes to zero and the second sees it and since the player gets at least one jump, the player got one jump each time. The problem was that the script runs on both controllers, so I included a check if the current controller is the left one, and only then I computed the number of jumps.
+In the reaction minigame, I encountered a bug where the jump count was calculated twice at the end of the ten-second timer. The first calculation would reset the hit count to zero, and the second would then default to the minimum of one jump. This happened because the script was running on both controllers simultaneously. I fixed this by adding a check to ensure the logic only executes for the left controller.
 
-In my T-shape interaction minigame, I had the problem that the T-shape was not moving back and forth, but starting to fly in one directionand never came back. I missed adding the *-1.5f* after the ping-pong method, so it never gets a negative push to come back. After adding this, I had the problem that the shape had the wrong middle point. I fixed this by setting: *startPosition = TargetT.transform.position;* instead of *startPosition = transform.position;*.
-
-So the T-shape was now oscillating correctly, but sometimes I hit the stop button accidentally twice, because I hit too far, and while taking my hand back, I entered the collider a second time. This could easily be fixed by extending the collider further to the back.
+In the T-shape interaction, the object initially moved in only one direction instead of oscillating. I had omitted the *-1.5f* offset in the *Mathf.PingPong* method, which prevented it from returning to a negative range. Additionally, the oscillation center was off-target; I corrected this by setting the startPosition to *TargetT.transform.position* instead of the script's own transform. Finally, to prevent accidental double-triggers of the *stop* button—often caused by the player's hand passing through the collider twice during a single motion—I extended the collider's depth to the rear.
 
 **Version Control Challenges**
 
-During the deployment of this blog, a large video file exceeded GitHub's upload limits. Even after local compression, the large file remained in the Git history, causing subsequent push attempts to fail. Resolving this required a *git revert* of the specific commit to clean the history before re-adding the compressed version.
+During the deployment of this blog, a large video file exceeded GitHub's file size limits. Even after local compression, the original large file remained in the Git history, causing subsequent pushes to fail. Resolving this required a git revert (or git filter-repo) of the specific commit to purge the large file from the history before re-adding the compressed version.
 
 **Conclusion**
 
-I really like my idea since it is very easy to extend the game, and I could start by implementing some parts without planning all the minigames in the beginning. This game can be modified in different ways, more/different minigames (with the same collider-hitting mechanic or other mechanics), different maps, or a multiplayer mode were the first things that came to my mind.
+I am very satisfied with the project's modular design, which allowed me to implement and test individual components without having to plan every minigame from the start. The system is easily expandable; it could be modified with new minigames using the same collision mechanics, different maps, or even a multiplayer mode.

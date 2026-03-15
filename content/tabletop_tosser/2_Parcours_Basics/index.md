@@ -6,25 +6,25 @@ weight: 4
 ---
 **Map Adjustments and Asset Creation**
 
-The first step involved modifying the existing environment. The little fields placed on the street were made with Blender. To ensure visual consistency, I created a low-poly color map using GIMP. I used a combination of blue and orange, since I think these colors harmonize well with each other and with the provided template. I extended the map to create more complex textures for the minigames. There is also space for further extension.
+The first step involved modifying the existing environment. The small fields placed on the track were created using Blender. To ensure visual consistency, I developed a low-poly color map in GIMP, using a combination of blue and orange. I chose these colors because they harmonize well with each other and the provided template. I also extended the map to create more complex textures for the minigames, leaving sufficient space for future expansions.
 
 {{< figure src="images/field.png" caption="The field I created with Blender." >}}
 
-{{< figure src="images/vr_colors.png" caption="The low poly color map used for texturing." >}}
+{{< figure src="images/vr_colors.png" caption="The low-poly color map used for texturing." >}}
 
-After modeling, I placed them in the map at relatively equal intervals along the path. I considered different numbers of total fields and settled on 45 fields to balance gameplay duration — ensuring the player engages with several minigames without making the experience overly repetitive. Every field has a collider and a tag named "field", so I can track if the player is standing on a field. By giving the fields names like "Field_0" in a sequential order, I can get the correct position of the current and the next field by tracking how many jumps the player has performed.
+After modeling the assets, I placed them along the path at relatively equal intervals. I experimented with different total field counts and settled on 45 fields to balance gameplay duration—ensuring the player engages with several minigames without the experience becoming repetitive. Each field has a collider and a tag named "field," allowing me to track if the player is standing on it. By naming the fields sequentially (e.g., "Field_0"), I can determine the correct position of the current and the next field by tracking the number of jumps the player has performed.
 
-I placed the collectible coins at the highest jumping point. Thus, the player would collect all coins without doing anything special. I thought of placing them a little bit off place so that the coins had to be pushed by the controllers while jumping, but I didn't know if it would be a little bit too fast with first swinging the arms to jump and then immediately pushing them to reach the coin. Therefore, I stayed with the simple approach of automatic collecting.
+I placed the collectible coins at the peak of the jump trajectory. Consequently, the player collects them automatically during the jump. I initially considered placing them slightly off-center so they would have to be "pushed" by the controllers mid-air. However, I was concerned that the transition from swinging arms to initiate the jump to immediately reaching for coins might be too fast or taxing. Therefore, I opted for the simpler approach of automatic collection.
 
-{{< figure src="images/parcours_new.png" caption="The updated parcours after placing the fields and adjust the coin placements." >}}
+{{< figure src="images/parcours_new.png" caption="The updated parcour after placing the fields and adjusting the coin placements." >}}
 
 **Jump Algorithm and Locomotion**
 
-To ensure an engaging experience, I decided that each jump must be initiated manually rather than having the character move automatically. I thought of mapping a real jump of the person to the player-character, but since the player-character has a fix lenght to jump to the next field, it would need complex calculations to get the real jump perfectly matched with the jump the player is performing. Any discrepancy here would likely induce motion sickness. I wanted to focus on the minigames, so I implemented an easier approach, by swinging the arms to initiate the jump, which would keep the motion sickness smaller than only pushing a button. To further enhance comfort, the jump is only triggered if the player is looking toward the next field, preventing disorienting sideways or backward movements.
+To ensure an engaging experience, I decided that each jump must be initiated manually rather than moving the character automatically. I considered mapping a physical jump by the user to the player-character. However, since the character moves a fixed distance to the next field, this would require complex calculations to align the physical movement with the virtual jump. Any discrepancy here would likely induce motion sickness. To focus on the minigames, I implemented a more accessible approach: swinging the arms to initiate the jump. This method reduces motion sickness more effectively than simply pressing a button. To further enhance comfort, the jump is only triggered if the player is looking toward the next field, preventing disorienting sideways or backward movements.
 
-To detect the armswing, I created invisible boxes that would be placed in the direction to the next field when jumps are available. I tested if both controllers were inside the boxes and that they are moving fast enough. Only if everything is fullfilled the player perform the jump.
+To detect the arm swing, I created invisible trigger boxes that are positioned toward the next field when a jump is available. The system checks if both controllers are within these boxes and moving at a sufficient speed. The jump is only performed if both conditions are met.
 
-Here you can see the code I use to jump from my position to a given position (the next field). The code was provided by AI by asking how I can jump to a desired position, and since it worked very good, I didn't change anything.
+Below is the code used to jump from the current position to a target position (the next field). The logic was adapted from an AI suggestion on how to jump to a specific coordinate; since it performed well during testing, I kept the implementation as is.
 
 ```c
 // values for the jumps
@@ -58,4 +58,4 @@ IEnumerator JumpCoroutine(Vector3 target)
 }
 ```
 
-To first test if the basic jump without minigames worked, I add one jump to the available jumps at entering the field collider. Thus, I first checked the core mechanics and included the minigames one-by-one.
+To test the basic jumping mechanic before integrating minigames, I initially added one "available jump" whenever the player entered a field collider. This allowed me to verify the core mechanics before gradually including the minigames.

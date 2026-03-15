@@ -11,38 +11,38 @@ weight: 2
 
 **User Study**
 
-To assess the gameplay experience and technical implementation, I conducted a user study with a small group of participants (friends and family). Each participant was given a brief orientation period to familiarize themselves with the Meta Quest 2 and the game's mechanics before performing a complete run.
+To evaluate the gameplay experience and technical implementation, I conducted a user study with a small group of participants (friends and family). Each participant was given a brief orientation period to familiarize themselves with the Meta Quest 2 and the game mechanics before completing a full run.
 
-The study was divided into two primary categories:
+The study focused on two primary categories:
 
- 1. Gameplay Mechanics: Ease of understanding, performance in skill-based mini-games (Reaction and T-shape), and overall entertainment value.
- 2. VR Experience: Motion sickness, presence, and physical/visual fatigue.
+ 1. Gameplay Mechanics: Ease of understanding, performance in skill-based minigames (Reaction and T-shape), and overall entertainment value.
+ 2. VR Experience: Motion sickness, sense of presence, and physical/visual fatigue.
 
-One participant with a history of vertigo tried to play the game, but got so much motion sickness after the first jump and was unable to continue.
+Notably, one participant with a history of vertigo experienced significant motion sickness after the first jump and was unable to continue.
 
-**Part 1**
+**Part 1: Mechanics and Engagement**
 
-As you can see in the first figure, the game mechanics were easy to understand. However, the fun factor varied. The game mechanics themselves were good, but the motivation was too low, since there was no real reward. You can compare with others or your previous run, how fast you were, or how many minigames you had to play, but the random factor is too big to really compare with.
+As shown in the first figure, the game mechanics were easy to understand. However, the "fun factor" varied among participants. While the core mechanics were well-received, long-term motivation was limited by a lack of substantial rewards. While players could compare their completion time or the number of minigames played with previous runs, the high impact of randomness made direct competition difficult.
 
 {{< figure src="images/part_1_1.png" caption="User study results regarding mechanics and engagement." >}}
 
-A key goal for me was to ensure that skill-based minigames felt more rewarding than the purely stochastic dice roll (which has an expected value of 3.5). As shown below, both the reaction game and the T-shape interaction yielded higher average jump rewards, confirming that player effort is effective.
+A key objective was to ensure that skill-based minigames felt more rewarding than purely stochastic dice rolls (which have an expected value of 3.5). As illustrated below, both the reaction game and the T-shape interaction yielded higher average jump rewards, confirming that player effort effectively influences the outcome.
 
 {{< figure src="images/part_1_2.png" caption="Average results of the two skill-based minigames." >}}
 
-**Part 2**
+**Part 2: VR Experience**
 
-Motion sickness is very different among the players. It's mostly like the player said beforehand, whether he gets easily motion sick or not. Fatigue was reported primarily as a result of visual flickering or extended play sessions. For me, in one game, I don't have fatigue, but as the programmer, I have to play it multiple times, and then I still don't have motion sickness, but a lot of fatigue after two or three games. Presence is relatively good, but it is not interesting enough to completely captivate the players.
+Susceptibility to motion sickness varied significantly among players and largely aligned with their self-reported sensitivity prior to the test. Fatigue was primarily attributed to visual flickering or extended sessions. As the developer, I did not experience motion sickness even after multiple runs, though I did note significant fatigue after two or three consecutive games. While the sense of presence was rated as relatively good, the environment was not yet immersive enough to fully captivate all players.
 
 {{< figure src="images/part_2.png" caption="Here are the results of part 2." >}}
 
 **Feedback**
 
-The participants give some additional feedback to the game:
+Participants provided the following constructive feedback:
 
- - The idea is good, but with more skill-based minigames, it would be better.
- - More motivation to play the game more often. (Rankings with the amount of rolls needed, or stats from the minigames.)
- - Place the objects at a height based on the height of the headset.
- - The objects are too big.
- - Give an acoustic or visible countdown timer for the reaction game.
- - The world is flickering too much.
+ - The concept is solid, but would benefit from a higher proportion of skill-based minigames.
+ - Increase motivation for replayability (e.g., global rankings for "fewest rolls needed" or detailed minigame statistics).
+ - Dynamic height adjustment: Place interactive objects based on the user's headset height.
+ - Scale adjustment: Some objects were perceived as too large.
+ - UI/UX: Add an acoustic or visual countdown timer for the reaction game.
+ - Visual Polish: Reduce the flickering within the virtual environment.
