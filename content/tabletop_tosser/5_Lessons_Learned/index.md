@@ -57,7 +57,7 @@ public class XRManualLoader : MonoBehaviour
 }
 ```
 
-I suspect the issue arose because the player and the field markers were being initialized in an inconsistent order, sometimes leaving the player without a valid starting position.
+I suspect the issue arose because the player and the field markers were being initialized in an inconsistent order, sometimes leaving the player without a valid starting position (the first field).
 
 **Minigame Refinement**
 
